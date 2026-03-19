@@ -1,0 +1,31 @@
+# Databricks Job Configuration - IoT Medallion Pipeline
+resources:
+  jobs:
+    IoT_Project:
+      name: IoT Project Orchestration
+      tasks:
+        # Identify changes in the metadata and update then with MERGE INTO
+        - task_key: Update_Metadata
+          notebook_task:
+            notebook_path: /Workspace/Users/<user-email>/IoT_Project/Update-Metadata
+            source: WORKSPACE
+
+        # Clean old metadata files that are no longer needed since we already changed
+        - task_key: Clean_Metadata_Files
+          depends_on:
+            - task_key: Update_Metadata
+          notebook_task:
+            notebook_path: /Workspace/Users/<user-email>/IoT_Project/Clean_metadata
+            source: WORKSPACE
+
+        # Begin the whole ELT process from bronze -> silver -> gold layers in order to serve the data into the dashboards
+        - task_key: IoT_Data_Pipeline
+          depends_on:
+            - task_key: Clean_Metadata_Files
+          pipeline_task:
+            pipeline_id: <sdp-pipeline-id>
+            full_refresh: false
+
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
