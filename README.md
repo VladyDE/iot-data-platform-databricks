@@ -9,7 +9,7 @@ This project implements a complete Lakehouse architecture in order to process Io
   <li>Gold Layer (Analytics): * full_iot_info_gold: A Streaming Table performing an incremental Join with static sensor metadata for low-latency enrichment.
 </li>
 </ol>
-## :wrench: Tech Stack
+## Tech Stack
 <ul>
   <li>Orchestration: Databricks Lakeflow Jobs (utilizing Task Values for dynamic variable passing between tasks).</li>
   <li>Processing Engine: Spark Declarative Pipelines with Python & SQL.</li>
