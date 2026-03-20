@@ -10,7 +10,7 @@ This project implements a complete Lakehouse architecture in order to process Io
 </li>
 </ol>
 
-## Tech Stack
+## :wrench: Tech Stack
 <ul>
   <li>Orchestration: Databricks Lakeflow Jobs (utilizing Task Values for dynamic variable passing between tasks).</li>
   <li>Processing Engine: Spark Declarative Pipelines with Python & SQL.</li>
