@@ -25,3 +25,10 @@ This project implements a complete Lakehouse architecture in order to process Io
   <li>Schema Drift Handling: During development, an unexpected schema change in the source files was detected. I resolved this by resetting the schemaLocation and enforcing a strict schema policy to prevent data corruption.</li>
   <li>Idempotency & Cleanup: Developed a maintenance script using Task Values to identify the latest metadata file and perform a safe cleanup of obsolete files in the Volume before the pipeline execution.</li>
 </ul>
+
+## :rocket: Deployment Steps
+<ol>
+  <li>Build and run the docker image in `/simulation`.</li>
+  <li>Create a new SDP pipeline and configure the `SDP_pipelines/IoTProject_ETL` as the path.</li>
+  <li>Import the job_config.yml into Databricks Lakeflow Jobs (make sure to edit the path to each volume and provide the pipeline id).</li>
+</ol>
