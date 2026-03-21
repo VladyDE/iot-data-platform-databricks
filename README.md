@@ -12,11 +12,10 @@ This project implements a complete Lakehouse architecture in order to process Io
 
 ## :wrench: Tech Stack
 <ul>
-  <li>Orchestration: Databricks Lakeflow Jobs (utilizing Task Values for dynamic variable passing between tasks).</li>
-  <li>Processing Engine: Spark Declarative Pipelines with Python & SQL.</li>
-  <li>Ingestion: Auto Loader with Schema Evolution protection</li>
-  <li>Governance: Unity Catalog</li>
-  <li>Governance: Unity Catalog</li>
-  <li>Visualization: Power BI via DirectQuery for real-time insights.</li>
-  <li>Infrastructure: Docker.</li>
+  <li>Python</li>
+  <li>SQL</li>
+  <li>Docker</li>
+  <li>Spark</li>
+  <li>Databricks</li>
+  <li>Power BI</li>
 </ul>
