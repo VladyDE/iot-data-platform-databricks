@@ -4,8 +4,6 @@
 This project implements a complete Lakehouse architecture in order to process IoT sensor telemetry using batch and streaming operations. It features a custom data simulator in Docker that streams Parquet files into Unity Catalog Volumes. The data is processed through a refined Medallion Architecture (Bronze, Silver, Gold) using Spark Declarative Pipelines and orchestrated along with other tasks via Lakeflow Jobs.
 The whole pipeline is idempotent, thanks to the SDP task and operations like `MERGE INTO` in other tasks withing the lakeflow job.
 
-![Dashboard](img/IoT_Final_Dashboard.png)
-
 ## :straight_ruler: Data architecture & Pipeline
 1. Bronze Layer: Incremental ingestion using Auto Loader. It captures file metadata, ingestion timestamps, and handles initial schema inference.
 2. Silver Layer: Data cleaning and schema enforcement. I implemented SDP Expectations to controll quality of data by dropping invalid sensor readings and flagin those with unexpected values with warnings before they reach the analytics layer.
@@ -41,3 +39,7 @@ In this case a standard JOIN will result in droping records in the background wi
 ### 2. Schema Drift & Malformed Payload Handling
 An upstream change in the ingestion or a corrupted Parquet file introduces unexpected columns or incompatible data types.
 The schema mismatch can easily crash the entire Spark structured streaming job (autoloader) or in the worse case scenario pollute the Silver/Gold layers with "garbage" data. For this case we use `cloudFiles.schemaEvolutionMode: failFast` in order to handle schema mismatch between the parquet that's being ingested and the actual schema of the delta tables, also the silver layer has expectations that act as another layer of security to prevent corrupted data to advance troughout the medallion architecture.
+
+## :chart_with_upwards_trend: Dashboard
+The dashboard is pretty simple, as it's main purpose it's to show at a glance the information that resides in the gold layer trough Power BI with Direct Query connection.
+![Dashboard](img/IoT_Final_Dashboard.png)
