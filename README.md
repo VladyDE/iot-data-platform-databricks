@@ -9,6 +9,8 @@ The whole pipeline is idempotent, thanks to the SDP task and operations like `ME
 2. Silver Layer: Data cleaning and schema enforcement. I implemented SDP Expectations to controll quality of data by dropping invalid sensor readings and flagin those with unexpected values with warnings before they reach the analytics layer.
 3. Gold Layer: Fully enriched data from both sensor metadata and telemetry tables. Contains 3 materialized views with aggregations in order to serve the final dashboard.
 
+![Alt text](iot-data-platform-databricks/img/Pipeline_Graph.png)
+
 ## :wrench: Tech Stack
 - Python
 - SQL
