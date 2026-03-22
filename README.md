@@ -4,12 +4,16 @@
 This project implements a complete Lakehouse architecture in order to process IoT sensor telemetry using batch and streaming operations. It features a custom data simulator in Docker that streams Parquet files into Unity Catalog Volumes. The data is processed through a refined Medallion Architecture (Bronze, Silver, Gold) using Spark Declarative Pipelines and orchestrated along with other tasks via Lakeflow Jobs.
 The whole pipeline is idempotent, thanks to the SDP task and operations like `MERGE INTO` in other tasks withing the lakeflow job.
 
+![Dashboard](img/IoT_Final_Dashboard.png)
+
 ## :straight_ruler: Data architecture & Pipeline
 1. Bronze Layer: Incremental ingestion using Auto Loader. It captures file metadata, ingestion timestamps, and handles initial schema inference.
 2. Silver Layer: Data cleaning and schema enforcement. I implemented SDP Expectations to controll quality of data by dropping invalid sensor readings and flagin those with unexpected values with warnings before they reach the analytics layer.
 3. Gold Layer: Fully enriched data from both sensor metadata and telemetry tables. Contains 3 materialized views with aggregations in order to serve the final dashboard.
 
 ![Pipeline Graph](img/Pipeline_Graph.png)
+
+![Job Graph](img/Job_Graph.png)
 
 ## :wrench: Tech Stack
 - Python
