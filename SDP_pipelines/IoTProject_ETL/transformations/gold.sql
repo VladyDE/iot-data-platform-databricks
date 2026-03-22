@@ -1,17 +1,17 @@
 -- Fully enriched iot data
 CREATE OR REFRESH STREAMING TABLE full_iot_info_gold
-COMMENT "Full information about IoT telemetry"
+COMMENT "Full enriched information with Late-Arriving Dimension handling"
 AS
 SELECT
   t.id_sensor,
-  m.modelo,
-  m.ubicacion,
-  m.rango_max,
+  COALESCE(m.modelo, 'Pending Registration') AS modelo,
+  COALESCE(m.ubicacion, 'Unknown Location') AS ubicacion,
+  COALESCE(m.rango_max, 0) AS rango_max,
   t.temperatura,
   t.humedad,
   t.timestamp
-FROM STREAM (live.silver_iot_telemetry) t
-JOIN dim_sensors m ON t.id_sensor = m.id_sensor;
+FROM STREAM(live.silver_iot_telemetry) t
+LEFT JOIN live.dim_sensors m ON t.id_sensor = m.id_sensor;
 
 -- Aggregated data by month
 CREATE OR REFRESH MATERIALIZED VIEW temp_humidity_bymonth_gold
