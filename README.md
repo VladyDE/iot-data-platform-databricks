@@ -32,6 +32,6 @@ The whole pipeline is idempotent, thanks to the SDP task and operations like `ME
 A new IoT sensor is deployed and begins transmitting telemetry before its metadata has been registered in the `dim_sensors` table.
 In this case a standard JOIN will result in droping records in the background without us noticing that they are gone. So in order to solve this i implementend a `LEFT JOIN` along with `COALESCE` function to flag those records as "pending registration" so we not end up with NULLs in the dashboard.
 
-### 3. Schema Drift & Malformed Payload Handling
+### 2. Schema Drift & Malformed Payload Handling
 An upstream change in the ingestion or a corrupted Parquet file introduces unexpected columns or incompatible data types.
 The schema mismatch can easily crash the entire Spark structured streaming job (autoloader) or in the worse case scenario pollute the Silver/Gold layers with "garbage" data. For this case we use `cloudFiles.schemaEvolutionMode: failFast` in order to handle schema mismatch between the parquet that's being ingested and the actual schema of the delta tables, also the silver layer has expectations that act as another layer of security to prevent corrupted data to advance troughout the medallion architecture.
