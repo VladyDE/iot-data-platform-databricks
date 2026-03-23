@@ -1,4 +1,5 @@
 # End-to-End IoT Data Engineering Project with Databricks Lakeflow & SDP
+![Pipeline Graph](img/FlowChart.png)
 
 ## :blue_book: Project Overview
 This project implements a complete Lakehouse architecture in order to process IoT sensor telemetry using batch and streaming operations. It features a custom data simulator in Docker that streams Parquet files into Unity Catalog Volumes. The data is processed through a refined Medallion Architecture (Bronze, Silver, Gold) using Spark Declarative Pipelines and orchestrated along with other tasks via Lakeflow Jobs.
