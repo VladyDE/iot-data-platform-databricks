@@ -8,7 +8,7 @@ The whole pipeline is idempotent, thanks to the SDP task and operations like `ME
 ## :straight_ruler: Data architecture & Pipeline
 1. Bronze Layer: Incremental ingestion using Auto Loader. It captures file metadata, ingestion timestamps, and handles initial schema inference.
 2. Silver Layer: Data cleaning and schema enforcement. I implemented SDP Expectations to controll quality of data by dropping invalid sensor readings and flagin those with unexpected values with warnings before they reach the analytics layer.
-3. Gold Layer: Fully enriched data from both sensor metadata and telemetry tables. Contains 3 materialized views with aggregations in order to serve the final dashboard.
+3. Gold Layer: Fully enriched data from both sensor metadata and telemetry tables. Contains 3 materialized views with aggregations in order to serve the final dashboard, one of them is partitioned by date, this ensures optimal data retrieval reducing compute resources.
 
 ![Pipeline Graph](img/Pipeline_Graph.png)
 
