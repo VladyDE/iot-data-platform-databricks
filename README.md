@@ -33,7 +33,7 @@ The whole pipeline is idempotent, thanks to the SDP task and operations like `ME
 - Import the `job_config.yml` into Databricks Lakeflow Jobs (make sure to edit the path to each volume and provide the pipeline id)
 
 ## :shield: Edge Cases & System Resilience
-### 1. Late-Arriving Dimensions (sensor metadata)
+### 1. Late-Arriving Dimensions (for sensor metadata)
 A new IoT sensor is deployed and begins transmitting telemetry before its metadata has been registered in the `dim_sensors` table.
 In this case a standard JOIN will result in droping records in the background without us noticing that they are gone. So in order to solve this i implementend a `LEFT JOIN` along with `COALESCE` function to flag those records as "pending registration" so we not end up with NULLs in the dashboard.
 
